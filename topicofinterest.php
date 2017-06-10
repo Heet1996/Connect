@@ -1,4 +1,6 @@
+<?php session_start() ?>
 <!DOCTYPE html>
+
 <html>
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <!-- Theme CSS -->
@@ -37,6 +39,7 @@
 </style>
 <body>
 <div class="container">
+<form method="post">
     <div class="row">
 
     <div class="col-xs-12 col-sm-12">
@@ -46,7 +49,7 @@
        <div class="row">
         <div class="col-md-2 col-md-offset-3">
         <div class="form-group ">
-            <input type="checkbox" name="data-structure" id="data-structure" autocomplete="off" />
+            <input type="checkbox" name="top" id="data-structure" autocomplete="off" />
             <div class="btn-group row">
                 <label for="data-structure" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok"></span>
@@ -61,7 +64,7 @@
         </div>
         <div class="col-md-2">
         <div class="form-group ">
-            <input type="checkbox" name="operating-system" id="operating-system" autocomplete="off" />
+            <input type="checkbox" name="top" id="operating-system" autocomplete="off" />
             <div class="btn-group row">
                 <label for="operating-system" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok"></span>
@@ -75,7 +78,7 @@
         </div>
         <div class="col-md-2">
         <div class="form-group ">
-            <input type="checkbox" name="android" id="android" autocomplete="off" />
+            <input type="checkbox" name="top" id="android" autocomplete="off" />
             <div class="btn-group row">
                 <label for="android" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok"></span>
@@ -89,7 +92,7 @@
         </div>
         
         </div>
-        <div class="row">
+       <!-- <div class="row">
         <div class="col-md-2 col-md-offset-3">
         <div class="form-group ">
             <input type="checkbox" name="data-structure" id="data-structure" autocomplete="off" />
@@ -140,23 +143,28 @@
         
         
     </div>
-
+-->
     <div class="row">
       
         <center>
             
             <button class="btn btn-success" name="topicofinterest">Submit</button>
-           <?php 
-
+           
+        </center>
+    </div>
+    </form>
+<?php 
+            
            if(isset($_POST['topicofinterest']))
            {
-           include('login.php');
+           //echo "<script> window.open('home.php','_self')</script>";
+           $email=$_SESSION['user_email'];
+           $topic=mysqli_real_escape_string($con,$_POST['top']);
+           $insert="Insert into users(topicofinterest) values('$topic') where user_email='$email'";
+           $run=mysqli_query($con,$insert) or die(mysqli_error($con));
            
            }
             ?>
-        </center>
-    </div>
-
     
 </div>
 </body>
